@@ -7,10 +7,11 @@
 5. docker run -p 8080:8080 fintech/accounts:v1
 6. docker run -d -p 8080:8080 fintech/accounts:v1
 7. docker stop <containerID>
-8. docker ps
-9. docker ps -a
-10. docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
-
+8. docker start <containerID>
+9. docker ps
+10. docker ps -a
+11. docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
+12. docker push image docker.io/shivamwadkar/accounts:v1
 
 # Generate Docker image with Buildpacks
 
