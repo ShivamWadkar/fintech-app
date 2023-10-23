@@ -14,6 +14,12 @@
 12. docker push image docker.io/shivamwadkar/accounts:v1
 13. docker compose up -d
 14. docker compose down
+15. docker compose stop
+16. docker compose start
+17. docker image rm <imageID>
+18. docker container restart <containerID>
+19. docker container inspect <containerID>
+20. docker container logs <containerID>
 
 # Generate Docker image with Buildpacks
 
