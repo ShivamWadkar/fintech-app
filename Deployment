@@ -1,0 +1,17 @@
+# Example docker commands for reference
+
+1. docker version
+2. docker build . -t shivamwadkar/accounts:v1
+3. docker images
+4. docker inspect image <imageID>
+5. docker run -p 8080:8080 fintech/accounts:v1
+6. docker run -d -p 8080:8080 fintech/accounts:v1
+7. docker stop <containerID>
+8. docker ps
+9. docker ps -a
+10. docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
+
+
+# Generate Docker image with Buildpacks
+
+1. mvn spring-boot:build-image
