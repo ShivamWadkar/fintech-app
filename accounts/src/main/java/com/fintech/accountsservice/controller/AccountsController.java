@@ -1,6 +1,7 @@
 package com.fintech.accountsservice.controller;
 
 import com.fintech.accountsservice.constants.AccountsConstants;
+import com.fintech.accountsservice.dto.AccountsContactInfoDto;
 import com.fintech.accountsservice.dto.CustomerDto;
 import com.fintech.accountsservice.dto.ErrorResponseDto;
 import com.fintech.accountsservice.dto.ResponseDto;
@@ -45,6 +46,9 @@ public class AccountsController {
 
     @Autowired
     private Environment environment;
+
+    @Autowired
+    private AccountsContactInfoDto accountsContactInfoDto;
 
     public AccountsController(IAccountsService iAccountsService) {
         this.iAccountsService = iAccountsService;
@@ -224,5 +228,30 @@ public class AccountsController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(environment.getProperty("java.version"));
+    }
+
+    @Operation(
+            summary = "Get contact info",
+            description = "Get contact info that can be reached out in case of any issues into accounts service"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "HTTP Status OK"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    }
+    )
+    @GetMapping("/contact-info")
+    public ResponseEntity<AccountsContactInfoDto> getContactInfo() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(accountsContactInfoDto);
     }
 }
