@@ -1,13 +1,8 @@
-spring:
-  config:
-    activate:
-      on-profile: "qa"
-
 build:
   version: "2.0"
 
 accounts:
-  message: "Welcome to Fintech accounts related QA APIs "
+  message: "Welcome to Fintech cards related QA APIs "
   contactDetails:
     name: "Shivam Wadkar - QA Lead"
     email: "shivamvwadkar@gmail.com"

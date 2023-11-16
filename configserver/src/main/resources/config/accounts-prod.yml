@@ -1,12 +1,8 @@
-spring:
-  config:
-    activate:
-      on-profile: "prod"
 build:
   version: "1.0"
 
 accounts:
-  message: "Welcome to Fintech loans related production APIs "
+  message: "Welcome to Fintech accounts related production APIs "
   contactDetails:
     name: "Shivam Wadkar - Product Owner"
     email: "shivamvwadkar@gmail.com"
