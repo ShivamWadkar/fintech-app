@@ -20,6 +20,7 @@
 18. docker container restart <containerID>
 19. docker container inspect <containerID>
 20. docker container logs <containerID>
+21. docker run -p 3306:3306 --name accountsdb -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=accountsdb -d mysql
 
 # Generate Docker image with Buildpacks
 
