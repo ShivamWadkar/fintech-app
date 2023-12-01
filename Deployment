@@ -11,7 +11,7 @@
 9. docker ps
 10. docker ps -a
 11. docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
-12. docker push image docker.io/shivamwadkar/accounts:v1
+12. docker image push docker.io/shivamwadkar/accounts:v1
 13. docker compose up -d
 14. docker compose down
 15. docker compose stop
