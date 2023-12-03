@@ -6,25 +6,30 @@ import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 
+import java.time.LocalDateTime;
+
 @SpringBootApplication
 public class GatewayserverApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(GatewayserverApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(GatewayserverApplication.class, args);
+    }
 
-	@Bean
-	public RouteLocator fintechRouteConfig(RouteLocatorBuilder routeLocatorBuilder) {
-		return routeLocatorBuilder.routes()
-				.route(p -> p.path("/fintech/accounts/**")
-						.filters(f -> f.rewritePath("/fintech/accounts/(?<segment>.*)","/${segment}"))
-						.uri("lb://ACCOUNTS"))
-				.route(p -> p.path("/fintech/loans/**")
-						.filters(f -> f.rewritePath("/fintech/loans/(?<segment>.*)","/${segment}"))
-						.uri("lb://LOANS"))
-				.route(p -> p.path("/fintech/cards/**")
-						.filters(f -> f.rewritePath("/fintech/cards/(?<segment>.*)","/${segment}"))
-						.uri("lb://CARDS")).build();
-	}
+    @Bean
+    public RouteLocator fintechRouteConfig(RouteLocatorBuilder routeLocatorBuilder) {
+        return routeLocatorBuilder.routes()
+                .route(p -> p.path("/fintech/accounts/**")
+                        .filters(f -> f.rewritePath("/fintech/accounts/(?<segment>.*)", "/${segment}")
+                                .addResponseHeader("X-Response-Time", LocalDateTime.now().toString()))
+                        .uri("lb://ACCOUNTS"))
+                .route(p -> p.path("/fintech/loans/**")
+                        .filters(f -> f.rewritePath("/fintech/loans/(?<segment>.*)", "/${segment}")
+                                .addResponseHeader("X-Response-Time", LocalDateTime.now().toString()))
+                        .uri("lb://LOANS"))
+                .route(p -> p.path("/fintech/cards/**")
+                        .filters(f -> f.rewritePath("/fintech/cards/(?<segment>.*)", "/${segment}")
+                                .addResponseHeader("X-Response-Time", LocalDateTime.now().toString()))
+                        .uri("lb://CARDS")).build();
+    }
 
 }
