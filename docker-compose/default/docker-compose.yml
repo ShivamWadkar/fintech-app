@@ -30,7 +30,7 @@ services:
       service: microservice-db-config
 
   configserver:
-    image: "shivamwadkar/configserver:v4"
+    image: "shivamwadkar/configserver:v5"
     container_name: configserver
     ports:
       - "8071:8071"
@@ -45,7 +45,7 @@ services:
       service: microservice-base-config
 
   eurekaserver:
-    image: "shivamwadkar/eurekaserver:v4"
+    image: "shivamwadkar/eurekaserver:v5"
     container_name: eurekaserver
     ports:
       - "8070:8070"
@@ -67,10 +67,16 @@ services:
       SPRING_CONFIG_IMPORT: "configserver:http://configserver:8071/"
 
   accounts:
-    image: "shivamwadkar/accounts:v4"
+    image: "shivamwadkar/accounts:v5"
     container_name: accounts-service
     ports:
       - "8080:8080"
+    healthcheck:
+      test: "curl --fail --silent localhost:8080/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
     extends:
       file: common-config.yml
       service: microservice-configserver-config
@@ -82,10 +88,16 @@ services:
       SPRING_DATASOURCE_URL: "jdbc:mysql://accountsdb:3306/accountsdb"
 
   cards:
-    image: "shivamwadkar/cards:v4"
+    image: "shivamwadkar/cards:v5"
     container_name: cards-service
     ports:
       - "9090:9090"
+    healthcheck:
+      test: "curl --fail --silent localhost:9090/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
     extends:
       file: common-config.yml
       service: microservice-configserver-config
@@ -96,11 +108,35 @@ services:
       SPRING_APPLICATION_NAME: cards
       SPRING_DATASOURCE_URL: "jdbc:mysql://cardsdb:3306/cardsdb"
 
+  gatewayserver:
+    image: "shivamwadkar/gatewayserver:v5"
+    container_name: gatewayserver
+    ports:
+      - "8072:8072"
+    depends_on:
+      accounts:
+        condition: service_healthy
+      loans:
+        condition: service_healthy
+      cards:
+        condition: service_healthy
+    extends:
+      file: common-config.yml
+      service: microservice-configserver-config
+    environment:
+      SPRING_APPLICATION_NAME: gatewayserver
+
   loans:
-    image: "shivamwadkar/loans:v4"
+    image: "shivamwadkar/loans:v5"
     container_name: loans-service
     ports:
       - "8090:8090"
+    healthcheck:
+      test: "curl --fail --silent localhost:8090/actuator/health/readiness | grep UP || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
     extends:
       file: common-config.yml
       service: microservice-configserver-config
