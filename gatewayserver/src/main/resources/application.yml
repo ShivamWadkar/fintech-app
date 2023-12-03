@@ -27,3 +27,9 @@ info:
     name: "gatewayserver"
     description: "Fintech Gateway Server Application"
     version: "1.0.0"
+
+logging:
+  level:
+    com:
+      fintech:
+        gatewayserver: DEBUG
