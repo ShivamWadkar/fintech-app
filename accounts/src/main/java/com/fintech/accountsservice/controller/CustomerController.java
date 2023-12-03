@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
         description = "REST APIs in Fintech to fetch Customer details"
 )
 @RestController
-@RequestMapping(path = "/api/v1/fintech/accounts", produces = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
 @Validated
 public class CustomerController {
 
