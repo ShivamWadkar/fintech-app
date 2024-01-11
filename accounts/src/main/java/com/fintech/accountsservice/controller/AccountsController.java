@@ -6,6 +6,7 @@ import com.fintech.accountsservice.dto.CustomerDto;
 import com.fintech.accountsservice.dto.ErrorResponseDto;
 import com.fintech.accountsservice.dto.ResponseDto;
 import com.fintech.accountsservice.service.IAccountsService;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -256,10 +257,19 @@ public class AccountsController {
             )
     }
     )
+    @RateLimiter(name = "getContactInfo", fallbackMethod = "getContactInfoFallback")
     @GetMapping("/contact-info")
     public ResponseEntity<AccountsContactInfoDto> getContactInfo() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(accountsContactInfoDto);
+    }
+
+    public ResponseEntity<AccountsContactInfoDto> getContactInfoFallback(Throwable throwable) {
+        AccountsContactInfoDto accountsContactInfoDto1 = new AccountsContactInfoDto();
+        accountsContactInfoDto1.setMessage("Contact to shivamvwadkar@gmail.com");
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(accountsContactInfoDto1);
     }
 }
