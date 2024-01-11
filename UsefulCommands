@@ -21,12 +21,14 @@
 19. docker container inspect <containerID>
 20. docker container logs <containerID>
 21. docker run -p 3306:3306 --name accountsdb -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=accountsdb -d mysql
+22. docker run -p 6379:6379 --name finredis -d redis
 
 # Generate Docker image with Buildpacks
-
 1. mvn spring-boot:build-image
 
 
 # Generate Docker image with Google Jib
-
 1. mvn compile jib:dockerBuild
+
+# Sending requests using Apache benchmark server
+1. ab -n 10 -c 2 -v 3 http://localhost:8072/fintech/cards/api
