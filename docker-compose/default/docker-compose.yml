@@ -112,7 +112,7 @@ services:
     image: prom/prometheus:v2.45.0
     container_name: prometheus
     ports:
-      - "9000:9000"
+      - "9090:9090"
     volumes:
       - ../observability/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     extends:
@@ -277,9 +277,9 @@ services:
     image: "shivamwadkar/cards:v8"
     container_name: cards-service
     ports:
-      - "9090:9090"
+      - "9000:9000"
     healthcheck:
-      test: "curl --fail --silent localhost:9090/actuator/health/readiness | grep UP || exit 1"
+      test: "curl --fail --silent localhost:9000/actuator/health/readiness | grep UP || exit 1"
       interval: 20s
       timeout: 5s
       retries: 20
