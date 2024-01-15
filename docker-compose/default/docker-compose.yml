@@ -216,7 +216,7 @@ services:
       service: network-deploy-service
 
   configserver:
-    image: "shivamwadkar/configserver:v7"
+    image: "shivamwadkar/configserver:v8"
     container_name: configserver
     ports:
       - "8071:8071"
@@ -231,7 +231,7 @@ services:
       service: microservice-base-config
 
   eurekaserver:
-    image: "shivamwadkar/eurekaserver:v7"
+    image: "shivamwadkar/eurekaserver:v8"
     container_name: eurekaserver
     ports:
       - "8070:8070"
@@ -253,7 +253,7 @@ services:
       SPRING_CONFIG_IMPORT: "configserver:http://configserver:8071/"
 
   accounts:
-    image: "shivamwadkar/accounts:v7"
+    image: "shivamwadkar/accounts:v8"
     container_name: accounts-service
     ports:
       - "8080:8080"
@@ -274,7 +274,7 @@ services:
       SPRING_DATASOURCE_URL: "jdbc:mysql://accountsdb:3306/accountsdb"
 
   cards:
-    image: "shivamwadkar/cards:v7"
+    image: "shivamwadkar/cards:v8"
     container_name: cards-service
     ports:
       - "9090:9090"
@@ -295,7 +295,7 @@ services:
       SPRING_DATASOURCE_URL: "jdbc:mysql://cardsdb:3306/cardsdb"
 
   gatewayserver:
-    image: "shivamwadkar/gatewayserver:v7"
+    image: "shivamwadkar/gatewayserver:v8"
     container_name: gatewayserver
     ports:
       - "8072:8072"
@@ -313,7 +313,7 @@ services:
       SPRING_APPLICATION_NAME: "gatewayserver"
 
   loans:
-    image: "shivamwadkar/loans:v7"
+    image: "shivamwadkar/loans:v8"
     container_name: loans-service
     ports:
       - "8090:8090"
