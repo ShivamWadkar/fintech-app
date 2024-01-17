@@ -35,6 +35,14 @@ management:
     tags:
       application: ${spring.application.name}
 
+logging:
+  level:
+    com:
+      fintech:
+        configserver: DEBUG
+  pattern:
+    level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
+
 encrypt:
   key: "A2C71AEF91215FD3563B86D1B899B"
 
