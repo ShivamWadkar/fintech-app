@@ -89,7 +89,7 @@
 				<version>3.4.0</version>
 				<configuration>
 					<to>
-						<image>shivamwadkar/${project.artifactId}:v8</image>
+						<image>shivamwadkar/${project.artifactId}:v9</image>
 					</to>
 				</configuration>
 			</plugin>

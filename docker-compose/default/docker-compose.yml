@@ -229,7 +229,7 @@ services:
       service: network-deploy-service
 
   configserver:
-    image: "shivamwadkar/configserver:v8"
+    image: "shivamwadkar/configserver:v9"
     container_name: configserver
     ports:
       - "8071:8071"
@@ -246,7 +246,7 @@ services:
       OTEL_SERVICE_NAME: "configserver"
 
   eurekaserver:
-    image: "shivamwadkar/eurekaserver:v8"
+    image: "shivamwadkar/eurekaserver:v9"
     container_name: eurekaserver
     ports:
       - "8070:8070"
@@ -269,7 +269,7 @@ services:
       OTEL_SERVICE_NAME: "eurekaserver"
 
   accounts:
-    image: "shivamwadkar/accounts:v8"
+    image: "shivamwadkar/accounts:v9"
     container_name: accounts-service
     ports:
       - "8080:8080"
@@ -291,7 +291,7 @@ services:
       OTEL_SERVICE_NAME: "accounts"
 
   cards:
-    image: "shivamwadkar/cards:v8"
+    image: "shivamwadkar/cards:v9"
     container_name: cards-service
     ports:
       - "9000:9000"
@@ -313,7 +313,7 @@ services:
       OTEL_SERVICE_NAME: "cards"
 
   gatewayserver:
-    image: "shivamwadkar/gatewayserver:v8"
+    image: "shivamwadkar/gatewayserver:v9"
     container_name: gatewayserver
     ports:
       - "8072:8072"
@@ -332,7 +332,7 @@ services:
       OTEL_SERVICE_NAME: "gatewayserver"
 
   loans:
-    image: "shivamwadkar/loans:v8"
+    image: "shivamwadkar/loans:v9"
     container_name: loans-service
     ports:
       - "8090:8090"
