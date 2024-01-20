@@ -2,6 +2,7 @@ package com.fintech.accountsservice.service.impl;
 
 import com.fintech.accountsservice.constants.AccountsConstants;
 import com.fintech.accountsservice.dto.AccountsDto;
+import com.fintech.accountsservice.dto.AccountsMsgDto;
 import com.fintech.accountsservice.dto.CustomerDto;
 import com.fintech.accountsservice.entity.Accounts;
 import com.fintech.accountsservice.entity.Customer;
@@ -13,7 +14,10 @@ import com.fintech.accountsservice.repository.AccountsRepository;
 import com.fintech.accountsservice.repository.CustomerRepository;
 import com.fintech.accountsservice.service.IAccountsService;
 import lombok.AllArgsConstructor;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 import java.util.Random;
@@ -22,8 +26,11 @@ import java.util.Random;
 @AllArgsConstructor
 public class AccountsServiceImpl implements IAccountsService {
 
+    private static final Logger log = LoggerFactory.getLogger(AccountsServiceImpl.class);
+
     private AccountsRepository accountsRepository;
     private CustomerRepository customerRepository;
+    private final StreamBridge streamBridge;
 
     @Override
     public void createAccount(CustomerDto customerDto) {
@@ -34,7 +41,16 @@ public class AccountsServiceImpl implements IAccountsService {
                     + customerDto.getMobileNumber());
         }
         Customer savedCustomer = customerRepository.save(customer);
-        accountsRepository.save(createNewAccount(savedCustomer));
+        Accounts savedAccount = accountsRepository.save(createNewAccount(savedCustomer));
+        sendCommunication(savedAccount, savedCustomer);
+    }
+
+    private void sendCommunication(Accounts account, Customer customer) {
+        var accountsMsgDto = new AccountsMsgDto(account.getAccountNumber(), customer.getName(),
+                customer.getEmail(), customer.getMobileNumber());
+        log.info("Sending Communication request for the details: {}", accountsMsgDto);
+        var result = streamBridge.send("sendCommunication-out-0", accountsMsgDto);
+        log.info("Is the Communication request successfully triggered ? : {}", result);
     }
 
     /**
