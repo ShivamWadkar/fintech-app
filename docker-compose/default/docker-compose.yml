@@ -29,6 +29,22 @@ services:
       file: common-config.yml
       service: microservice-db-config
 
+  rabbit:
+    image: rabbitmq:3.12-management
+    hostname: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: rabbitmq-diagnostics check_port_connectivity
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
+
   keycloak:
     image: quay.io/keycloak/keycloak:22.0.1
     container_name: keycloak
@@ -242,7 +258,7 @@ services:
       service: network-deploy-service
 
   configserver:
-    image: "shivamwadkar/configserver:v10"
+    image: "shivamwadkar/configserver:v11"
     container_name: configserver
     ports:
       - "8071:8071"
@@ -259,7 +275,7 @@ services:
       OTEL_SERVICE_NAME: "configserver"
 
   eurekaserver:
-    image: "shivamwadkar/eurekaserver:v10"
+    image: "shivamwadkar/eurekaserver:v11"
     container_name: eurekaserver
     ports:
       - "8070:8070"
@@ -282,7 +298,7 @@ services:
       OTEL_SERVICE_NAME: "eurekaserver"
 
   accounts:
-    image: "shivamwadkar/accounts:v10"
+    image: "shivamwadkar/accounts:v11"
     container_name: accounts-service
     healthcheck:
       test: "curl --fail --silent localhost:8080/actuator/health/readiness | grep UP || exit 1"
@@ -296,13 +312,16 @@ services:
     depends_on:
       accountsdb:
         condition: service_healthy
+      rabbit:
+        condition: service_healthy
     environment:
       SPRING_APPLICATION_NAME: accounts
       SPRING_DATASOURCE_URL: "jdbc:mysql://accountsdb:3306/accountsdb"
       OTEL_SERVICE_NAME: "accounts"
+      SPRING_RABBITMQ_HOST: "rabbit"
 
   cards:
-    image: "shivamwadkar/cards:v10"
+    image: "shivamwadkar/cards:v11"
     container_name: cards-service
     healthcheck:
       test: "curl --fail --silent localhost:9000/actuator/health/readiness | grep UP || exit 1"
@@ -322,7 +341,7 @@ services:
       OTEL_SERVICE_NAME: "cards"
 
   gatewayserver:
-    image: "shivamwadkar/gatewayserver:v10"
+    image: "shivamwadkar/gatewayserver:v11"
     container_name: gatewayserver
     ports:
       - "8072:8072"
@@ -342,7 +361,7 @@ services:
       SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI: "http://keycloak:8080/realms/master/protocol/openid-connect/certs"
 
   loans:
-    image: "shivamwadkar/loans:v10"
+    image: "shivamwadkar/loans:v11"
     container_name: loans-service
     healthcheck:
       test: "curl --fail --silent localhost:8090/actuator/health/readiness | grep UP || exit 1"
@@ -360,6 +379,18 @@ services:
       SPRING_APPLICATION_NAME: loans
       SPRING_DATASOURCE_URL: "jdbc:mysql://loansdb:3306/loansdb"
       OTEL_SERVICE_NAME: "loans"
+
+  message:
+    image: "shivamwadkar/message:v11"
+    container_name: message-ms
+    depends_on:
+      rabbit:
+        condition: service_healthy
+    environment:
+      SPRING_RABBITMQ_HOST: "rabbit"
+    extends:
+      file: common-config.yml
+      service: network-deploy-service
 
 networks:
   fintech:
