@@ -32,3 +32,6 @@
 
 # Sending requests using Apache benchmark server
 1. ab -n 10 -c 2 -v 3 http://localhost:8072/fintech/cards/api
+
+# Starting Keycloak
+1. docker run -p 7080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:23.0.4 start-dev
