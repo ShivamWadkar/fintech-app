@@ -392,6 +392,10 @@ services:
       file: common-config.yml
       service: network-deploy-service
 
+volumes:
+  kafka_data:
+    driver: local
+
 networks:
   fintech:
     driver: "bridge"
