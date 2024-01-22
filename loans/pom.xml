@@ -101,7 +101,7 @@
 				<version>3.4.0</version>
 				<configuration>
 					<to>
-						<image>shivamwadkar/${project.artifactId}:v10</image>
+						<image>shivamwadkar/${project.artifactId}:v11</image>
 					</to>
 				</configuration>
 			</plugin>

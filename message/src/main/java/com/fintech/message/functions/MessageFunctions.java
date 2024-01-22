@@ -28,4 +28,5 @@ public class MessageFunctions {
             return accountsMsgDto.accountNumber();
         };
     }
+
 }

@@ -24,7 +24,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-stream-binder-rabbit</artifactId>
+			<artifactId>spring-cloud-stream-binder-kafka</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -61,7 +61,7 @@
 				<version>3.4.0</version>
 				<configuration>
 					<to>
-						<image>shivamwadkar/${project.artifactId}:v10</image>
+						<image>shivamwadkar/${project.artifactId}:v11</image>
 					</to>
 				</configuration>
 			</plugin>
