@@ -22,6 +22,7 @@
 20. docker container logs <containerID>
 21. docker run -p 3306:3306 --name accountsdb -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=accountsdb -d mysql
 22. docker run -p 6379:6379 --name finredis -d redis
+23. docker exec -it <containerID> mysql -u <user> -p<password>
 
 # Generate Docker image with Buildpacks
 1. mvn spring-boot:build-image
@@ -43,5 +44,4 @@
 1. .\bit\windows\kafka-storage.bat random-uuid
 2. .\bin\windows\kafka-storage.bat format -t <id> -c .\config\kraft\server.properties
 3. .\bin\windows\kafka-server-start.bat .\config\kraft\server.properties
-
 - Use kafkalytic plugin in IDE
