@@ -45,3 +45,12 @@
 2. .\bin\windows\kafka-storage.bat format -t <id> -c .\config\kraft\server.properties
 3. .\bin\windows\kafka-server-start.bat .\config\kraft\server.properties
 - Use kafkalytic plugin in IDE
+
+# Example Kubernetes commands
+
+1. kubectl config get-contexts
+2. kubectl config use-context
+3. kubectl config get-clusters
+4. kubectl get nodes
+
+# Kubernetes dashboard setup: https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
