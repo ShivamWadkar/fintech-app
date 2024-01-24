@@ -55,5 +55,15 @@
 5. kubectl get deployments
 6. kubectl get services
 7. kubectl get pods
+8. kubectl apply -f <filename.yml>
+9. kubectl get replicaset
+10. kubectl delete pod <pod_name>
+11. kubectl delete -f <filename.yml>
+12. kubectl get events --sort-by=.metadata.creationTimestamp
+13. kubectl scale deployment accounts-deployment --replicas=1
+14. kubectl describe pod <pod_name>
+15. kubectl set image deployment gatewayserver-deployment gatewayserver=shivamwadkar/gatewayserver:v9
+16. kubectl rollout history deployment gatewayserver-deployment
+17. kubectl rollout undo deployment gatewayserver-deployment --to-revision=1
 
 # Kubernetes dashboard setup: https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
