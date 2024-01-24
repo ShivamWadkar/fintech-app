@@ -52,5 +52,8 @@
 2. kubectl config use-context
 3. kubectl config get-clusters
 4. kubectl get nodes
+5. kubectl get deployments
+6. kubectl get services
+7. kubectl get pods
 
 # Kubernetes dashboard setup: https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
